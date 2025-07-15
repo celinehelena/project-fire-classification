@@ -9,6 +9,8 @@ Este trabalho apresenta o desenvolvimento de um aplicação de classificação d
 ## ⚙️ Desenvolvimento / Técnicas Utilizadas
 Para a tarefa de classificação de imagens, foi usado o dataset "Fire Dataset", disponiblizado no Kaggle, contendo 999 imagens categorizadas em duas pastas: fire_images e non_fire_images. O processo teve inicio com o download da base de dados, organizando-o da maneira como o Yolo aceita, é necessário que esteja organizado em subpastas de treinamento, validação e teste. Com isso, o conjunto de dados original extraídos do Kaggle foi dividio em três subconjuntos: treinamento (70%), validação (15%) e teste (15%). O gráfico mostra essa divisão.
 
+![Gráfico de Distribuição das Imagens no Dataset](assets/distribution_dataset_img.png) 
+
 Assim como, as imagens passaram por um processo de pré-processamento em que foram automaticamente redimensionadas para 640x640 pixels, conforme o parâmento imgsz, e normalizadas com valores de pixel convertidos para o intervalo [0,1], conforme exigido pelo pipeline da Ultralytics. Além de técnicas leves de data augmentation foram aplicadas automaticamente, como espelhamento horizontal aleatório, corte e alterações no brilho e contraste, promovendo uma melhor capacidade de generalização do modelo.
 
 Como modelo adotou-se a arquitetura Yolov11 na sua configuração pré-treinada voltada para a classificação de imagens (yolo11n-cls.pt). O treinamento foi conduzido por 25 épocas com batch size 16 e tendo como otimizador, o Adam. A principal métrica de desempenho utilizada foi a acurácia sobre os conjuntos de validação e teste.
