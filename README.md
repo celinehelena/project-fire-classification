@@ -7,10 +7,11 @@ Em 2024, o Brasil registrou 278,3 mil focos de incêndio, segundo o Inpe, que re
 Este trabalho apresenta o desenvolvimento de um aplicação de classificação de imagens que identifica a presença ou ausência de fogo, utilizando a arquitetura YOLOv11, um modelo especifico para classificação de imagens. O objetivo é treinar esse modelo para classificar imagens em duas categorias: "fire" e "non_fire".
 
 ## ⚙️ Desenvolvimento / Técnicas Utilizadas
-Para a tarefa de classificação de imagens, foi usado o dataset "Fire Dataset", disponiblizado no Kaggle, contendo 999 imagens categorizadas em duas pastas: fire_images e non_fire_images. O processo teve inicio com o download da base de dados, organizando-o da maneira como o Yolo aceita, é necessário que esteja organizado em subpastas de treinamento, validação e teste. Com isso, o conjunto de dados original extraídos do Kaggle foi dividio em três subconjuntos: treinamento (70%), validação (15%) e teste (15%). O gráfico mostra essa divisão.
+Para a tarefa de classificação de imagens, foi usado o dataset "Fire Dataset", disponiblizado no Kaggle, contendo 999 imagens categorizadas em duas pastas: `fire_images` e `non_fire_images`. O processo teve inicio com o download da base de dados, organizando-o da maneira como o YOLO aceita, é necessário que esteja organizado em subpastas de treinamento, validação e teste. Com isso, o conjunto de dados original extraídos do Kaggle foi dividio em três subconjuntos: treinamento (70%), validação (15%) e teste (15%). O gráfico mostra essa divisão.
 <p align="center">
 <img src="assets/distribution_dataset_img.png" alt="Gráfico de Distribuição das Imagens no Dataset" width="450"/>
 </p>
+
 A base de dados foi dividida nos conjuntos de treino, validação e teste da seguinte forma:
 
 | Classe     | Treino | Validação | Teste |
@@ -18,14 +19,14 @@ A base de dados foi dividida nos conjuntos de treino, validação e teste da seg
 | `fire`     | 528    | 113       | 114   |
 | `non_fire` | 170    | 36        | 38    |
 
-Assim como, as imagens passaram por um processo de pré-processamento em que foram automaticamente redimensionadas para 640x640 pixels, conforme o parâmento imgsz, e normalizadas com valores de pixel convertidos para o intervalo [0,1], conforme exigido pelo pipeline da Ultralytics. Além de técnicas leves de data augmentation foram aplicadas automaticamente, como espelhamento horizontal aleatório, corte e alterações no brilho e contraste, promovendo uma melhor capacidade de generalização do modelo.
+Assim como, as imagens passaram por um processo de pré-processamento em que foram automaticamente redimensionadas para 640x640 pixels, conforme o parâmento `imgsz`, e normalizadas com valores de pixel convertidos para o intervalo `[0,1]`, conforme exigido pelo pipeline da Ultralytics. Além de técnicas leves de data augmentation foram aplicadas automaticamente, como espelhamento horizontal aleatório, corte e alterações no brilho e contraste, promovendo uma melhor capacidade de generalização do modelo.
 
-Como modelo adotou-se a arquitetura Yolov11 na sua configuração pré-treinada voltada para a classificação de imagens (yolo11n-cls.pt). O treinamento foi conduzido por 25 épocas com batch size 16 e tendo como otimizador, o Adam. A principal métrica de desempenho utilizada foi a acurácia sobre os conjuntos de validação e teste.
+Como modelo adotou-se a arquitetura Yolov11 na sua configuração pré-treinada voltada para a classificação de imagens (`yolo11n-cls.pt`). O treinamento foi conduzido por 25 épocas com batch size 16 e tendo como otimizador, o Adam. A principal métrica de desempenho utilizada foi a acurácia sobre os conjuntos de validação e teste.
 
-Para realizar o treinamento, foi usado o ambiente de execução do Google Colab, com aceleração por GPU(Tesla T4)	 e a biblioteca PyTorch integrada à interface da Ultralytics.
+Para realizar o treinamento, foi usado o ambiente de execução do Google Colab, com aceleração por GPU (Tesla T4)	 e a biblioteca PyTorch integrada à interface da Ultralytics.
 
 ## 📊 Resultados
-Ao final do treinamento com o modelo YOLOv11, foram obtidos resultados satisfatórios quanto ao desempenho da aplicação com a taxa de erro residual minima. Conforme mostra a figura a seguir, é observado a evolução das curvas de loss e acurácia ao longo das épocas. E percebe-se que o **loss de treino** apresentou uma queda consistente e o de validação caiu rapidamente nas primeiras épocas, estabilizando-se próximo a zero. E em relação a acurácia top-1, teve uma evolução positiva, com valores superiores a 97%, e a acurácia top-5 permaneceu constante em 100%.
+Ao final do treinamento com o modelo YOLOv11, foram obtidos resultados satisfatórios quanto ao desempenho da aplicação com a taxa de erro residual minima. Conforme mostra a figura a seguir, é observado a evolução das curvas de loss e acurácia ao longo das épocas. E percebe-se que o **loss de treino** apresentou uma queda consistente e o de validação caiu rapidamente nas primeiras épocas, estabilizando-se próximo a zero. E em relação a **acurácia top-1**, teve uma evolução positiva, com valores superiores a 97%, e a **acurácia top-5** permaneceu constante em 100%.
 
 <div align="center"> <img src="assets/train/results.png" alt="Curvas de Acurácia e Perda" width="400"/> </div>
 
