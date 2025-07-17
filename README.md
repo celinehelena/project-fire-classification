@@ -7,7 +7,7 @@ Em 2024, o Brasil registrou 278,3 mil focos de incêndio, segundo o Inpe, que re
 Este trabalho apresenta o desenvolvimento de um aplicação de classificação de imagens que identifica a presença ou ausência de fogo, utilizando a arquitetura YOLOv11, um modelo especifico para classificação de imagens. O objetivo é treinar esse modelo para classificar imagens em duas categorias: "fire" e "non_fire".
 
 ## ⚙️ Desenvolvimento / Técnicas Utilizadas
-Para a tarefa de classificação de imagens, foi utilizado o Fire Dataset, disponibilizado no Kaggle, contendo 999 imagens organizadas em duas categorias: `fire_images` e `non_fire_images`. O processo teve início com o download da base de dados e sua reorganização no formato exigido pelo YOLO, com as imagens distribuídas em subpastas para treinamento, validação e teste. O conjunto original foi, então, dividido aleatoriamente em três subconjuntos: treinamento (70%), validação (15%) e teste (15%). O gráfico abaixo ilustra essa divisão:
+Para a tarefa de classificação de imagens, foi utilizado o [Fire Dataset](https://www.kaggle.com/datasets/phylake1337/fire-dataset), disponibilizado no Kaggle, contendo 999 imagens organizadas em duas categorias: `fire_images` e `non_fire_images`. O processo teve início com o download da base de dados e sua reorganização no formato exigido pelo YOLO, com as imagens distribuídas em subpastas para treinamento, validação e teste. O conjunto original foi, então, dividido aleatoriamente em três subconjuntos: treinamento (70%), validação (15%) e teste (15%). O gráfico abaixo ilustra essa divisão:
 <p align="center">
 <img src="assets/distribution_dataset_img.png" alt="Gráfico de Distribuição das Imagens no Dataset" width="450"/>
 </p>
