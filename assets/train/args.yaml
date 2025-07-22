@@ -1,7 +1,7 @@
 task: classify
 mode: train
 model: yolo11n-cls.pt
-data: /content/dataset
+data: /content/drive/MyDrive/Yolo_Fire_Project/dataset
 epochs: 25
 time: null
 patience: 100
