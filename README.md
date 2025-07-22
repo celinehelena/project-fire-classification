@@ -5,6 +5,23 @@ Este repositório tem por objetivo apresentar um projeto desenvolvido para a dis
   <p><strong>Figura 1:</strong> Resultado da classificação pelo Yolo.</p>
 </div>
 
+## 📁 Estrutura do projeto
+```
+project-fire-classify/
+├── assets/ # Recursos auxiliares, como imagens para documentação
+|   ├── teste/ # Resultados obtidos do testes
+|   ├── train/ # Resultados obtidos do treinamento
+|   ├── amosta_dataset.jpeg  # Amostra visual de imagens presentes no dataset
+|   ├── comparation_matrix.png  # Imagem da matriz de comparação entre teste e treinamento
+|   ├── distribution_dataset.png  # Gráfico de distribuição das classes no dataset
+|   ├── erro_classifity.jpeg  # Exemplos de erro de classificação cometido pelo modelo
+├── scripts  #códigos para gerar amostra do dataset e particionamento da base de dados
+├── weights/  # Pesos finais gerados após o treinamento da rede
+├── LICENSE  # Licença de uso do projeto
+├── README.md  # Documentação principal do projeto
+└── train_yolo.ipynb  # Notebook responsável pelo treinamento do modelo YOLOv11
+````
+
 ## 📌 Introdução
 Em 2024, o Brasil registrou 278,3 mil focos de incêndio, segundo o Inpe, que representa um aumento de 46,5%, em relação ao ano anterior. De modo que a detecção precoce desses principios de incêndio é essencia para uma resposta rápida e eficaz, minimizando os danos causados. Para que isso aconteça é necessário um monitoramento automático de incêndio por meio de imagens. Nesse contexto, a aplicação de soluções baseadas em visão computacional e aprendizado de máquina tem se mostrado eficiente para a detecção precoce de focos de incêndio em imagens capturadas por satélites, câmeras fixas ou drones.
 
