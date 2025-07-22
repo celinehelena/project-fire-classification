@@ -6,8 +6,15 @@ Em 2024, o Brasil registrou 278,3 mil focos de incêndio, segundo o Inpe, que re
 
 Este trabalho apresenta o desenvolvimento de um aplicação de classificação de imagens que identifica a presença ou ausência de fogo, utilizando a arquitetura YOLOv11, um modelo especifico para classificação de imagens. O objetivo é treinar esse modelo para classificar imagens em duas categorias: "fire" e "non_fire".
 
-## ⚙️ Desenvolvimento / Técnicas Utilizadas
-Para a tarefa de classificação de imagens, foi utilizado o [Fire Dataset](https://www.kaggle.com/datasets/phylake1337/fire-dataset), disponibilizado no Kaggle, contendo 999 imagens organizadas em duas categorias: `fire_images` e `non_fire_images`. O processo teve início com o download da base de dados e sua reorganização no formato exigido pelo YOLO, com as imagens distribuídas em subpastas para treinamento, validação e teste. O conjunto original foi, então, dividido aleatoriamente em três subconjuntos: treinamento (70%), validação (15%) e teste (15%). O gráfico abaixo ilustra essa divisão:
+## ⚙️ Metodologia
+Para a realização da tarefa de classificação binária de imagens, foi utilizado o [Fire Dataset](https://www.kaggle.com/datasets/phylake1337/fire-dataset), disponibilizado na plataforma Kaggle. O conjunto de dados é composto por 999 imagens divididas em duas classes: `fire_images` (imagens contendo fogo) e `non_fire_images` (imagens sem ocorrência de fogo). As imagens contemplam uma ampla gama de cenários, incluindo ambientes naturais (como florestas) e urbanos (como edificações, residências, veículos e rodovias), o que contribui para uma maior robustez na generalização do modelo.
+A seguir, é exibida uma amostra representativa do dataset, gerada por um script automatizado responsável por selecionar imagens aleatórias da base.
+<p align="center">
+<img src="assets/amostra_dataset_img.png" alt="Amostra do Dataset" width="450"/>
+</p>
+
+### 🗂️ Distribuição do Dataset
+O processo teve início com o download da base de dados e sua reorganização no formato exigido pelo YOLO, com as imagens distribuídas em subpastas para treinamento, validação e teste. O conjunto original foi, então, dividido aleatoriamente em três subconjuntos: treinamento (70%), validação (15%) e teste (15%). O gráfico abaixo ilustra essa divisão:
 <p align="center">
 <img src="assets/distribution_dataset_img.png" alt="Gráfico de Distribuição das Imagens no Dataset" width="450"/>
 </p>
@@ -19,11 +26,48 @@ A divisão foi realizada com auxílio de um script que aloca aleatoriamente as i
 | `fire`     | 528    | 113       | 114   |
 | `non_fire` | 170    | 36        | 38    |
 
+### Pré-Processamento de dados
+
 As imagens passaram por um processo de pré-processamento, sendo automaticamente redimensionadas para 640×640 pixels, conforme o parâmetro `imgsz`, e normalizadas com os valores de pixel convertidos para o intervalo `[0, 1]`, como exigido pelo pipeline da Ultralytics. Técnicas leves de data augmentation foram aplicadas automaticamente, incluindo espelhamento horizontal aleatório, corte e alterações de brilho e contraste, contribuindo para uma melhor capacidade de generalização do modelo.
 
-O modelo utilizado foi a arquitetura YOLOv11, na versão pré-treinada para tarefas de classificação (`yolo11n-cls.pt`). O treinamento foi conduzido por 25 épocas, com batch size 16 e uso do otimizador `Adam`. A principal métrica de desempenho adotada foi a acurácia nos conjuntos de validação e teste.
+Inclui também no pré-processamente a etapa mencionada anteriormente, particionamento do conjunto de dados em treinamento (70%), validação (15%) e teste (15%).
 
-O treinamento foi realizado no ambiente Google Colab, com aceleração por GPU (Tesla T4), utilizando a biblioteca PyTorch integrada à interface da Ultralytics.
+### Arquitetura do modelo
+A arquitetura selecionada para a tarefa de classificação de imagens foi a YOLOv11 (You Only Look Once, versão 11), com ênfase no modelo `yolo11n-cls.pt`, previamente treinado para tarefas de classificação. Esta versão é adaptada para classificação pura e mostra-se adequada para cenários com dados limitados e distribuição desbalanceada entre as classes.
+
+A tarefa desenvolvida consistiu em uma classificação binária, com o objetivo de identificar a presença (fire) ou ausência (non_fire) de fogo em imagens. O modelo foi refinado para capturar padrões visuais característicos de incêndios, como a presença de chamas, coloração avermelhada e fumaça.
+
+### **Ferramentas e Bibliotecas Utilizadas**
+
+O desenvolvimento e a execução do projeto foram realizados com o suporte das seguintes ferramentas e bibliotecas:
+* **YOLOv11 (Ultralytics):** Framework utilizado para implementação da arquitetura e gerenciamento da pipeline de treinamento;
+* **PyTorch:** Biblioteca de aprendizado profundo empregada na modelagem e execução da rede neural;
+* **Python 3.10:** Linguagem de programação principal utilizada no projeto;
+* **Google Colab (GPU Tesla T4):** Ambiente de desenvolvimento com suporte à aceleração por GPU, facilitando o treinamento do modelo;
+* **Matplotlib**: Bibliotecas para visualização de dados e análise gráfica dos resultados.
+  
+Essa infraestrutura possibilitou um fluxo de trabalho eficiente e reprodutível, além de oferecer suporte para o monitoramento detalhado do desempenho do modelo.
+
+### Treinamento e Avaliação do Modelo
+
+O treinamento foi conduzido usando os seguintes principais parâmetros:
+* `model='yolo11n-cls.pt'` – Modelo base pré-treinado para classificação;
+* `data=data.yaml` – Arquivo de configuração com caminhos para os conjuntos train, val e test;
+* `epochs=25` – Número total de épocas para treinamento;
+* `batch=16` – Tamanho do lote (batch size);
+* `imgsz=640` – Resolução das imagens (640x640 pixels);
+
+Durante o treinamento, o modelo foi capaz de aprender rapidamente os padrões visuais relacionados à presença de fogo, com melhora significativa das métricas já nas primeiras épocas. 
+<div align="center"> <img src="assets/train/results.png" alt="Imagens da etapa de treinamento" width="400"/> </div>
+
+Após o treinamento, a performance do modelo foi avaliada automaticamente com base nos seguintes indicadores:
+
+* **Loss** – Perda (erro) da predição ao longo das épocas;
+* **Top-1 Accuracy** – Percentual de acertos considerando a classe mais provável;
+* **Top-5 Accuracy** – Percentual de acertos considerando as 5 classes mais prováveis (embora a tarefa seja binária);
+* **Confusion Matrix** – Representação visual dos acertos e erros por classe.
+
+Além disso, o modelo foi testado sobre o conjunto separado de imagens (`test`) para avaliar sua capacidade de generalização, e os erros cometidos foram analisados individualmente, com imagens incorretamente classificadas sendo exibidas para análise qualitativa.
 
 ## 📊 Resultados
 Ao final do treinamento, o modelo **YOLOv11** apresentou desempenho satisfatório, com taxa de erro residual mínima. A figura a seguir mostra a evolução das curvas de loss e acurácia ao longo das épocas. Nota-se que o **loss** de treino teve uma queda consistente, enquanto o de validação caiu rapidamente nas primeiras épocas e estabilizou-se próximo de zero. Já a **acurácia top-1** evoluiu positivamente, superando 97%, enquanto a **acurácia top-5** manteve-se constante em 100%.
