@@ -69,7 +69,7 @@ Após o treinamento, a performance do modelo foi avaliada automaticamente com ba
 
 Além disso, o modelo foi testado sobre o conjunto separado de imagens (`test`) para avaliar sua capacidade de generalização, e os erros cometidos foram analisados individualmente, com imagens incorretamente classificadas sendo exibidas para análise qualitativa.
 
-## 📊 Resultados
+## 📊 Resultados e Discussões
 Ao final do treinamento, o modelo **YOLOv11** apresentou desempenho satisfatório, com taxa de erro residual mínima. A figura a seguir mostra a evolução das curvas de loss e acurácia ao longo das épocas. Nota-se que o **loss** de treino teve uma queda consistente, enquanto o de validação caiu rapidamente nas primeiras épocas e estabilizou-se próximo de zero. Já a **acurácia top-1** evoluiu positivamente, superando 97%, enquanto a **acurácia top-5** manteve-se constante em 100%.
 
 <div align="center"> <img src="assets/train/results.png" alt="Curvas de Acurácia e Perda" width="400"/> </div>
@@ -77,11 +77,22 @@ Ao final do treinamento, o modelo **YOLOv11** apresentou desempenho satisfatóri
 A acurácia final no conjunto de treinamento foi de **98,7%**. Para avaliar o desempenho após o treinamento, a rede foi testada com o conjunto de teste, e a matriz de confusão obtida demonstra a seguinte performance:
 <div align="center"> <img src="assets/test/confusion_matrix.png" alt="Matriz de Confusão" width="400"/> </div>
 
-A partir da matriz, observa-se que o modelo classificou corretamente 114 de 115 imagens da classe `fire` e 36 de 38 da classe `non_fire`, o que corresponde a uma acurácia de aproximadamente **99,3%**. Esses resultados indicam uma excelente capacidade de generalização para imagens não vistas anteriormente. Considerando a divisão aleatória do dataset, o modelo mostrou-se robusto, com ótimo desempenho mesmo em cenários variados de iluminação e perspectiva.
+A partir da matriz, observa-se que o modelo classificou corretamente 114 de 115 imagens da classe `fire` e 36 de 38 da classe `non_fire`, o que corresponde a uma acurácia de aproximadamente **94,7%**. Esses resultados indicam uma excelente capacidade de generalização para imagens não vistas anteriormente. Considerando a divisão aleatória do dataset, o modelo mostrou-se robusto, com ótimo desempenho mesmo em cenários variados de iluminação e perspectiva.
+
+Além disso, foi realizada uma comparação entre as matrizes de confusão dos conjuntos de treinamento e teste, como mostrado a seguir:
+<div align="center"> <table> <tr> <td align="center"><strong>Treinamento</strong><br><img src="assets/train/confusion_matrix.png" alt="Matriz de Treinamento" width="700"/></td> <td align="center"><strong>Teste</strong><br><img src="assets/test/confusion_matrix.png" alt="Matriz de Teste" width="700"/></td> </tr> </table> </div>
+A seguir, é apresentada uma imagem com alguns dos resultados de classificação do modelo:
+<div align="center"> <img src="assets/test/confusion_matrix.png" alt="Matriz de Confusão" width="700"/> </div>
+
+A análise mostra que o modelo manteve desempenho semelhante entre as fases, com uma leve oscilação nos falsos positivos e falsos negativos. A ausência de predições para a classe background em ambas as fases sugere a possibilidade de reavaliar a representação dessa categoria nas anotações ou sua real necessidade no modelo.
 
 A seguir, é apresentada uma imagem com alguns dos resultados de classificação do modelo:
-<div align="center"> <img src="assets/test/confusion_matrix.png" alt="Matriz de Confusão" width="400"/> </div>
+
+<div align="center"> <img src="assets/test/predictions.png" alt="Predições em imagens reais" width="400"/> </div>
+
 Foi identificado apenas um caso de erro de classificação, ilustrado na imagem abaixo.
+
+<div align="center"> <img src="assets/test/misclassified_example.png" alt="Erro de classificação" width="400"/> </div>
 
 ## Conclusão
 Os resultados alcançados foram possíveis devido a utilização do YOLOv11 na tarefa de classificação aliado ao otimizador Adam, permitindo encontrar um desempenho robusto sem a necessidade de arquiteturas complexas ou alto custo computacional. Em trabalhos futuros, pode-se expandir essa aplicação para a detecção localizada de focos de incêndio em tempo real (objeto + bounding box), incorporando variações climáticas e contextos diversos. 
