@@ -9,22 +9,29 @@ Este trabalho apresenta o desenvolvimento de um aplicação de classificação d
 ## ⚙️ Metodologia
 Para a realização da tarefa de classificação binária de imagens, foi utilizado o [Fire Dataset](https://www.kaggle.com/datasets/phylake1337/fire-dataset), disponibilizado na plataforma Kaggle. O conjunto de dados é composto por 999 imagens divididas em duas classes: `fire_images` (imagens contendo fogo) e `non_fire_images` (imagens sem ocorrência de fogo). As imagens contemplam uma ampla gama de cenários, incluindo ambientes naturais (como florestas) e urbanos (como edificações, residências, veículos e rodovias), o que contribui para uma maior robustez na generalização do modelo.
 A seguir, é exibida uma amostra representativa do dataset, gerada por um script automatizado responsável por selecionar imagens aleatórias da base.
-<p align="center">
-<img src="assets/amostra_dataset_img.png" alt="Amostra do Dataset" width="450"/>
-</p>
+<div align="center">
+<img src="assets/amosta_dataset.jpeg" alt="Amostra do Dataset" width="500"/>
+  <p><strong>Figura 2:</strong> Amostra de imagens do dataset.</p>
+</div>
 
 ### 🗂️ Distribuição do Dataset
 O processo teve início com o download da base de dados e sua reorganização no formato exigido pelo YOLO, com as imagens distribuídas em subpastas para treinamento, validação e teste. O conjunto original foi, então, dividido aleatoriamente em três subconjuntos: treinamento (70%), validação (15%) e teste (15%). O gráfico abaixo ilustra essa divisão:
-<p align="center">
-<img src="assets/distribution_dataset_img.png" alt="Gráfico de Distribuição das Imagens no Dataset" width="450"/>
-</p>
+<div align="center">
+<img src="assets/distribution_dataset.png" alt="Gráfico de Distribuição das Imagens no Dataset" width="450"/>
+  <p><strong>Figura 3:</strong> Gráfico de Distribuição das Imagens do Dataset.</p>
+</div>
 
 A divisão foi realizada com auxílio de um script que aloca aleatoriamente as imagens entre os três subconjuntos. A distribuição final das imagens ficou da seguinte forma:
-
+<div align="center">
+  
 | Classe     | Treino | Validação | Teste |
 |------------|--------|-----------|-------|
 | `fire`     | 528    | 113       | 114   |
 | `non_fire` | 170    | 36        | 38    |
+
+<p><strong>Tabela 1:</strong> Particionamento do dateset nos subconjuntos.</p>
+
+</div>
 
 ### Pré-Processamento de dados
 
@@ -58,7 +65,10 @@ O treinamento foi conduzido usando os seguintes principais parâmetros:
 * `imgsz=640` – Resolução das imagens (640x640 pixels);
 
 Durante o treinamento, o modelo foi capaz de aprender rapidamente os padrões visuais relacionados à presença de fogo, com melhora significativa das métricas já nas primeiras épocas. 
-<div align="center"> <img src="assets/train/results.png" alt="Imagens da etapa de treinamento" width="400"/> </div>
+<div align="center"> 
+  <img src="assets/train/train_batch0.jpg" alt="Imagens da etapa de treinamento" width="500"/> 
+  <p><strong>Figura 4:</strong> Imagens da etapa de treinamento.</p>
+</div>
 
 Após o treinamento, a performance do modelo foi avaliada automaticamente com base nos seguintes indicadores:
 
