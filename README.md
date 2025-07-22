@@ -15,7 +15,6 @@ project-fire-classify/
 |   ├── comparation_matrix.png  # Imagem da matriz de comparação entre teste e treinamento
 |   ├── distribution_dataset.png  # Gráfico de distribuição das classes no dataset
 |   ├── erro_classifity.jpeg  # Exemplos de erro de classificação cometido pelo modelo
-├── scripts  #códigos para gerar amostra do dataset e particionamento da base de dados
 ├── weights/  # Pesos finais gerados após o treinamento da rede
 ├── LICENSE  # Licença de uso do projeto
 ├── README.md  # Documentação principal do projeto
