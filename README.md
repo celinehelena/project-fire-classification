@@ -5,6 +5,9 @@ Este repositório tem por objetivo apresentar um projeto desenvolvido para a dis
   <p><strong>Figura 1:</strong> Resultado da classificação pelo Yolo.</p>
 </div>
 
+## Desenvolvido por:
+* Celine Helena Abrantes de Andrade 
+
 ## 📁 Estrutura do projeto
 ```
 project-fire-classify/
